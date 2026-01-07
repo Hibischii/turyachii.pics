@@ -56,6 +56,25 @@
             padding: 40px;
         }
 
+        .search-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-container input {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            width: 60%;
+            max-width: 500px;
+            border: 2px solid #ccc;
+            border-radius: 30px;
+            outline: none;
+        }
+
+        .search-container input:focus {
+            border-color: #ffb400;
+        }
+
         .post {
             background-color: #fff;
             margin-bottom: 40px;
@@ -142,6 +161,14 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
+        .gallery .photo[data-tags*="luxury"] {
+            display: block;
+        }
+
+        .gallery .photo[data-tags*="minimal"] {
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .gallery .photo {
                 width: calc(50% - 20px);
@@ -175,24 +202,22 @@
     </nav>
 
     <div class="container">
-        <div class="post">
-            <img src="https://via.placeholder.com/1200x600" alt="Immagine Life Makeover">
-            <div class="content">
-                <h2>Come creare il tuo spazio di lusso</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet bibendum nunc. Cras scelerisque, libero et tincidunt varius, ipsum lorem efficitur orci, at laoreet urna urna eu lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a href="#" class="btn-read-more">Leggi di più</a>
-            </div>
+        <div class="search-container">
+            <input type="text" id="tagSearch" placeholder="Cerca per tag (es. luxury, minimal)" oninput="filterPhotos()">
         </div>
 
-        <div class="gallery">
-            <div class="photo">
-                <img src="https://via.placeholder.com/600x400" alt="Life Makeover Photo 1">
+        <div class="gallery" id="gallery">
+            <div class="photo" data-tags="luxury, home">
+                <img src="https://via.placeholder.com/600x400?text=Luxury+Home" alt="Luxury Home">
             </div>
-            <div class="photo">
-                <img src="https://via.placeholder.com/600x400" alt="Life Makeover Photo 2">
+            <div class="photo" data-tags="minimal, decor">
+                <img src="https://via.placeholder.com/600x400?text=Minimal+Decor" alt="Minimal Decor">
             </div>
-            <div class="photo">
-                <img src="https://via.placeholder.com/600x400" alt="Life Makeover Photo 3">
+            <div class="photo" data-tags="luxury, fashion">
+                <img src="https://via.placeholder.com/600x400?text=Luxury+Fashion" alt="Luxury Fashion">
+            </div>
+            <div class="photo" data-tags="minimal, lifestyle">
+                <img src="https://via.placeholder.com/600x400?text=Minimal+Lifestyle" alt="Minimal Lifestyle">
             </div>
         </div>
     </div>
@@ -201,6 +226,22 @@
         <p>&copy; 2026 Life Makeover Blog | Design by YourName</p>
         <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
+
+    <script>
+        function filterPhotos() {
+            const searchValue = document.getElementById('tagSearch').value.toLowerCase();
+            const photos = document.querySelectorAll('.gallery .photo');
+
+            photos.forEach(photo => {
+                const tags = photo.getAttribute('data-tags').toLowerCase();
+                if (tags.includes(searchValue)) {
+                    photo.style.display = 'block';
+                } else {
+                    photo.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </body>
 
